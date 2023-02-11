@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -47,17 +49,23 @@ function FilteredEventsPage(props) {
     return <p className='center'>Loading...</p>;
   }
 
-    // extract year and number from the url
+ // extract year and number from the url
   const filteredYear = filterData[0];
   const filteredMonth = filterData[1];
 
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
-
+  const pageHeadData = (
+    <Head>
+      <title>Filterd Events</title>
+      <meta name="description" content={`all events for ${numMonth}/${numYear}`} />
+    </Head>
+  )
   // validate year and month
   if ( isNaN(numYear) || isNaN(numMonth) || numYear > 2030 || numYear < 2021 || numMonth < 1 || numMonth > 12 || error ) {
     return (
       < >
+      {pageHeadData}
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
@@ -79,6 +87,7 @@ function FilteredEventsPage(props) {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       < >
+      {pageHeadData}
         <ErrorAlert>
           <p>No events found for the chosen filter!</p>
         </ErrorAlert>
@@ -93,8 +102,11 @@ function FilteredEventsPage(props) {
 
   return (
     < >
+    {pageHeadData}
+    <main>
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
+    </main>
     </ >
   );
 }
