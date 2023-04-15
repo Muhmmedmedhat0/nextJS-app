@@ -55,8 +55,9 @@ export async function getStaticPaths() {
     paths: event_ids,
     /* USER EXPERIENCE AND PREFORMANCE
       * tell nextjs to know there are more pages to be generated
-      * fallback: false // render 404 page for unknown id
-      * fallback: true // tell next there are more pages to be generated than the ones that we prepared here
+      * fallback: false // tell next there are more pages to be generated than the ones that we prepared here
+      * fallback: true // render 404 page for unknown id
+      
       * fallback: 'blocking' 
               /* nextjs will not serve any thing untill 
                 we are done generating the page and the
