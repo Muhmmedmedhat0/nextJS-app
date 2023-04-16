@@ -55,14 +55,15 @@ export async function getStaticPaths() {
     paths: event_ids,
     /* USER EXPERIENCE AND PREFORMANCE
       * tell nextjs to know there are more pages to be generated
-      * fallback: false // tell next there are more pages to be generated than the ones that we prepared here
-      * fallback: true // render 404 page for unknown id
+      * fallback: false // serve a 404 page for any path that is not generated at build time
+      * fallback: true // tell next there are more pages to be generated than the ones that we prepared here
       
       * fallback: 'blocking' 
-              /* nextjs will not serve any thing untill 
-                we are done generating the page and the
-                loading takes longer and got the entire
-                page right from the start
+              /* will behave like the true option, but with one difference.
+              Instead of serving a fallback page immediately on the first request,
+              the server will wait for getStaticProps to finish running before serving a fully-fledged version of the page.
+              This option is especially useful when you want to render content that takes a longer time to load,
+              and you don't want the user to see a loading indicator.
      */
     fallback: true,
   };
